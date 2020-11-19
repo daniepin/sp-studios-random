@@ -57,8 +57,10 @@ def getRandomSeasonAndEpisode() -> int:
 def createSoup(url: str) -> BeautifulSoup:
     """ Return a BeutifulSoup object of website located at url"""
     page = requests.get(url)
-    print("url:", url)
-    print("page content", page.content)
+    #print("url:", url)
+    #print("page content", page.content)
+    #s = BeautifulSoup(page.content, 'html.parser')
+    #print(s.prettify())
     return BeautifulSoup(page.content, 'html.parser')
 
 
