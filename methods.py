@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import webbrowser
 import configparser
 import json
+import time
 
 
 def createConfigFile() -> None:
@@ -77,6 +78,8 @@ def loopOverLinks(condition: str, soup: BeautifulSoup, extra_str: str = "") -> l
     Iterate over a BeautifulSoup object looking for all 'a' tags that 
     satisfy some condition.
     """
+    if (extra_str != ""):
+        time.sleep(5)
     list_ = []
     print("condition =", condition)
     print("---------------------Start-----------------------------")
