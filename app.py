@@ -9,12 +9,11 @@ app = Flask(__name__)
 def index():
     season, episode = methods.getRandomSeasonAndEpisode()
     print("Loading S%dE%d" % (season, episode))
-    # url = methods.getEpisodeURL(season, episode)
-    # print("Episode url is: {}".format(url))
-    # methods.launcher('firefox', url)
-    print("Episode loaded!")
+    url = methods.getEpisodeURL(season, episode)
+    print("Episode url is: {}".format(url))
     # return redirect("https://google.com", code=302)
-    return webbrowser.open_new_tab('https://google.com')
+    webbrowser.open_new_tab(url)
+    return ('', 204)
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
