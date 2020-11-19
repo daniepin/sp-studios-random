@@ -1,6 +1,6 @@
 from flask.templating import render_template_string
 import methods
-from flask import Flask, Response
+from flask import Flask, render_template_string
 import requests
 
 app = Flask(__name__)
@@ -14,11 +14,7 @@ def index():
     # methods.launcher('firefox', url)
     print("Episode loaded!")
     r = requests.get("https://google.com")
-    return Response(
-        r.text,
-        status=r.status_code,
-        content_type=r.headers['content-type'],
-    )
+    return render_template_string(r.text)
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
