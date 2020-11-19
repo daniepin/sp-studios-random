@@ -1,7 +1,6 @@
 from flask.templating import render_template_string
 import methods
-from flask import Flask, render_template_string
-import requests
+from flask import Flask, redirect
 
 app = Flask(__name__)
 
@@ -13,8 +12,7 @@ def index():
     # print("Episode url is: {}".format(url))
     # methods.launcher('firefox', url)
     print("Episode loaded!")
-    r = requests.get("https://google.com")
-    return render_template_string(r.text)
+    return redirect("https://google.com", code=302)
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
