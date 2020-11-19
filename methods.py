@@ -76,9 +76,12 @@ def loopOverLinks(condition: str, soup: BeautifulSoup, extra_str: str = "") -> l
     satisfy some condition.
     """
     list_ = []
+    print("condition =", condition)
     for link in soup.find_all('a'):
         l = link.get('href')
         if (l[0:len(condition)] == condition):
+            print("condition matched")
+            print(extra_str + l)
             list_.append(extra_str + l)
 
     return list_
