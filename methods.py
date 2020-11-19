@@ -28,10 +28,12 @@ EPISODES_PREFIX = config['DEFAULT']['EPISODES_PREFIX']
 DEFAULT_SEASON = config['DEFAULT']['DEFAULT_SEASON']
 
 def useless():
+    print("Params loaded from config.ini")
     print(BASE_URL)
     print(SEASON_PREFIX)
     print(EPISODES_PREFIX)
     print(DEFAULT_SEASON)
+    print("---------End-----------")
 
 
 def loadDictionary(filename: str) -> dict:
@@ -77,13 +79,14 @@ def loopOverLinks(condition: str, soup: BeautifulSoup, extra_str: str = "") -> l
     """
     list_ = []
     print("condition =", condition)
+    print("--------------------------------------------------")
     for link in soup.find_all('a'):
         l = link.get('href')
+        print(l)
         if (l[0:len(condition)] == condition):
-            print("condition matched")
-            print(extra_str + l)
             list_.append(extra_str + l)
 
+    print("--------------------------------------------------")
     return list_
 
 
@@ -112,7 +115,7 @@ def getEpisodeURL(season: int, episode: int) -> str:
 
     soup = createSoup(URL)
     episode_list = loopOverLinks(EPISODES_PREFIX, soup, BASE_URL)
-    print("episode_list length: {}\n EPISODES_PREFIX:  {}\nBASE_URL {} ||".format(len(episode_list), EPISODES_PREFIX, BASE_URL))
+    print("episode_list length: {}\n EPISODES_PREFIX:  {}\nBASE_URL: {} ||".format(len(episode_list), EPISODES_PREFIX, BASE_URL))
 
     """ 
     This check is needed because if an episode number is
