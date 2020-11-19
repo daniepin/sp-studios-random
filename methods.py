@@ -105,9 +105,11 @@ def getEpisodeURL(season: int, episode: int) -> str:
     url for the webpage of said episode.
     """
     URL = BASE_URL + getSeasonURL(season)
+    print("In getEpisodeURL: url = "URL)
 
     soup = createSoup(URL)
     episode_list = loopOverLinks(EPISODES_PREFIX, soup, BASE_URL)
+    print("episode_list length: {}\n EPISODES_PREFIX:  {}\nBASE_URL {} ||".format(len(episode_list), EPISODES_PREFIX, BASE_URL))
 
     """ 
     This check is needed because if an episode number is
