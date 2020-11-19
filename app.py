@@ -9,12 +9,11 @@ app = Flask(__name__)
 def index():
     season, episode = methods.getRandomSeasonAndEpisode()
     print("Loading S%dE%d" % (season, episode))
-    url = methods.getEpisodeURL(season, episode)
-
-    print("Episode url is: {}".format(url))
+    # url = methods.getEpisodeURL(season, episode)
+    # print("Episode url is: {}".format(url))
     # methods.launcher('firefox', url)
     print("Episode loaded!")
-    r = requests.get(url)
+    r = requests.get("https://google.com")
     return Response(
         r.text,
         status=r.status_code,
