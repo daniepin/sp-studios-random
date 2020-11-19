@@ -27,6 +27,12 @@ SEASON_PREFIX = config['DEFAULT']['SEASON_PREFIX']
 EPISODES_PREFIX = config['DEFAULT']['EPISODES_PREFIX']
 DEFAULT_SEASON = config['DEFAULT']['DEFAULT_SEASON']
 
+def useless():
+    print(BASE_URL)
+    print(SEASON_PREFIX)
+    print(EPISODES_PREFIX)
+    print(DEFAULT_SEASON)
+
 
 def loadDictionary(filename: str) -> dict:
     """ 

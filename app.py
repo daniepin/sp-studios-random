@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    methods.useless()
     season, episode = methods.getRandomSeasonAndEpisode()
     print("Loading S%dE%d" % (season, episode))
     url = methods.getEpisodeURL(season, episode)
