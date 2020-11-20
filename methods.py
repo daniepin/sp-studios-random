@@ -127,5 +127,3 @@ def launcher(browser: str, url: str) -> None:
     webbrowser.register(browser, None)
     webbrowser.get().open(url)
 
-
-
