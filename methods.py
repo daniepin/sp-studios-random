@@ -133,7 +133,7 @@ def getEpisodeURL(season: int, episode: int) -> str:
 
     if (len(episode_list) == 0):
         print("Season %d does not contain any episodes! Please try again." % season)
-        exit(0)
+        #exit(0)
 
     #return episode_list[episode - 1]
     return "https://www.southparkstudios.nu/episodes/pomjzh/south-park-cartman-sucks-season-11-ep-2"
