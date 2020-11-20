@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 import webbrowser
 import configparser
 import json
-import time
 
 
 def createConfigFile() -> None:
@@ -27,14 +26,6 @@ BASE_URL = config['DEFAULT']['BASE_URL']
 SEASON_PREFIX = config['DEFAULT']['SEASON_PREFIX']
 EPISODES_PREFIX = config['DEFAULT']['EPISODES_PREFIX']
 DEFAULT_SEASON = config['DEFAULT']['DEFAULT_SEASON']
-
-def useless():
-    print("Params loaded from config.ini")
-    print(BASE_URL)
-    print(SEASON_PREFIX)
-    print(EPISODES_PREFIX)
-    print(DEFAULT_SEASON)
-    print("---------End-----------")
 
 
 def loadDictionary(filename: str) -> dict:
@@ -66,10 +57,6 @@ def getRandomSeasonAndEpisode() -> int:
 def createSoup(url: str) -> BeautifulSoup:
     """ Return a BeutifulSoup object of website located at url"""
     page = requests.get(url)
-    #print("url:", url)
-    #print("page content", page.content)
-    #s = BeautifulSoup(page.content, 'html.parser')
-    #print(s.prettify())
     return BeautifulSoup(page.content, 'html.parser')
 
 
@@ -78,17 +65,12 @@ def loopOverLinks(condition: str, soup: BeautifulSoup, extra_str: str = "") -> l
     Iterate over a BeautifulSoup object looking for all 'a' tags that 
     satisfy some condition.
     """
-    if (extra_str != ""):
-        print("extra =", extra_str)
     list_ = []
-    #print("condition =", condition)
-    #print("---------------------Start-----------------------------")
     for link in soup.find_all('a'):
         l = link.get('href')
         if (l[0:len(condition)] == condition):
             list_.append(extra_str + l)
 
-    #print("----------------------End----------------------------")
     return list_
 
 
@@ -116,6 +98,8 @@ def getEpisodeURL(season: int, episode: int) -> str:
     print("In getEpisodeURL: url =", URL)
 
     soup = createSoup(URL)
+    #ERROR IS HERE
+    #NOT FETCHING RIGHT LINKS
     episode_list = loopOverLinks(EPISODES_PREFIX, soup, BASE_URL)
 
     """ 
@@ -135,8 +119,7 @@ def getEpisodeURL(season: int, episode: int) -> str:
         print("Season %d does not contain any episodes! Please try again." % season)
         #exit(0)
 
-    #return episode_list[episode - 1]
-    return "https://www.southparkstudios.nu/episodes/pomjzh/south-park-cartman-sucks-season-11-ep-2"
+    return episode_list[episode - 1]
 
 
 def launcher(browser: str, url: str) -> None:
