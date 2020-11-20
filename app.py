@@ -14,6 +14,7 @@ def index():
     print("Episode url is: {}".format(url))
     # return redirect("https://google.com", code=302)
     webbrowser.open_new_tab(url)
+    return redirect(url, code=302)
     return ('', 204)
 
 if __name__ == '__main__':
