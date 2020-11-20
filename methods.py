@@ -79,18 +79,16 @@ def loopOverLinks(condition: str, soup: BeautifulSoup, extra_str: str = "") -> l
     satisfy some condition.
     """
     if (extra_str != ""):
-        time.sleep(5)
+        print("extra =", extra_str)
     list_ = []
-    print("condition =", condition)
-    print("---------------------Start-----------------------------")
+    #print("condition =", condition)
+    #print("---------------------Start-----------------------------")
     for link in soup.find_all('a'):
         l = link.get('href')
-        if (extra_str != ""):
-            print(l)
         if (l[0:len(condition)] == condition):
             list_.append(extra_str + l)
 
-    print("----------------------End----------------------------")
+    #print("----------------------End----------------------------")
     return list_
 
 
@@ -119,7 +117,6 @@ def getEpisodeURL(season: int, episode: int) -> str:
 
     soup = createSoup(URL)
     episode_list = loopOverLinks(EPISODES_PREFIX, soup, BASE_URL)
-    print("episode_list length: {}\n EPISODES_PREFIX:  {}\nBASE_URL: {} ||".format(len(episode_list), EPISODES_PREFIX, BASE_URL))
 
     """ 
     This check is needed because if an episode number is
@@ -138,7 +135,8 @@ def getEpisodeURL(season: int, episode: int) -> str:
         print("Season %d does not contain any episodes! Please try again." % season)
         exit(0)
 
-    return episode_list[episode - 1]
+    #return episode_list[episode - 1]
+    return "https://www.southparkstudios.nu/episodes/pomjzh/south-park-cartman-sucks-season-11-ep-2"
 
 
 def launcher(browser: str, url: str) -> None:
