@@ -100,6 +100,8 @@ def getEpisodeURL(season: int, episode: int) -> str:
     soup = createSoup(URL)
     #ERROR IS HERE
     #NOT FETCHING RIGHT LINKS
+    #Appears that this fetches a different set of containers than 
+    #the local version.
     episode_list = loopOverLinks(EPISODES_PREFIX, soup, BASE_URL)
 
     """ 
