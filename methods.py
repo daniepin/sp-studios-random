@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import webbrowser
 import configparser
 import json
+import numpy as np
 
 
 def createConfigFile() -> None:
@@ -98,10 +99,6 @@ def getEpisodeURL(season: int, episode: int) -> str:
     print("In getEpisodeURL: url =", URL)
 
     soup = createSoup(URL)
-    #ERROR IS HERE
-    #NOT FETCHING RIGHT LINKS
-    #Appears that this fetches a different set of containers than 
-    #the local version.
     episode_list = loopOverLinks(EPISODES_PREFIX, soup, BASE_URL)
 
     """ 
@@ -119,7 +116,7 @@ def getEpisodeURL(season: int, episode: int) -> str:
 
     if (len(episode_list) == 0):
         print("Season %d does not contain any episodes! Please try again." % season)
-        #exit(0)
+        exit(0)
 
     return episode_list[episode - 1]
 
@@ -129,3 +126,14 @@ def launcher(browser: str, url: str) -> None:
     webbrowser.register(browser, None)
     webbrowser.get().open(url)
 
+def loadEpisodeList():
+    episodes = np.loadtxt('ALL_EPISODES_SORTED.txt', dtype="U145")
+    return episodes
+
+
+def getRandomEpisode():
+    episodes = loadEpisodeList()
+
+    limit = len(episodes)
+    r = np.random.randint(0, limit)
+    return episodes[r]

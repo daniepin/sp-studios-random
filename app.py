@@ -7,9 +7,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    season, episode = methods.getRandomSeasonAndEpisode()
-    print("Loading S%dE%d" % (season, episode))
-    url = methods.getEpisodeURL(season, episode)
+    #season, episode = methods.getRandomSeasonAndEpisode()
+    #print("Loading S%dE%d" % (season, episode))
+    #url = methods.getEpisodeURL(season, episode)
+    url = getRandomEpisode()
     print("Episode url is: {}".format(url))
     # return redirect("https://google.com", code=302)
     #webbrowser.open_new_tab(url)
