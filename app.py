@@ -10,7 +10,7 @@ def index():
     #season, episode = methods.getRandomSeasonAndEpisode()
     #print("Loading S%dE%d" % (season, episode))
     #url = methods.getEpisodeURL(season, episode)
-    url = getRandomEpisode()
+    url = methods.getRandomEpisode()
     print("Episode url is: {}".format(url))
     # return redirect("https://google.com", code=302)
     #webbrowser.open_new_tab(url)
