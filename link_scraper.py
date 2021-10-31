@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import json
 import configparser
+from numpy.core.numeric import base_repr
 import requests
 from methods import createSoup, loopOverLinks, loadDictionary
 import numpy as np
@@ -55,16 +56,7 @@ def scrapeSite():
                         if (l[0:len(EPISODES_PREFIX)] == EPISODES_PREFIX):
                             episodes.add(BASE_URL + l)
 
-
     return episodes
-
-#episodes = scrapeSite()
-#episodes.add('https://www.southparkstudios.nu/episodes/7rd3vw/south-park-a-very-crappy-christmas-season-4-ep-17')
-#episodes = np.fromiter(episodes, 'U150' , len(episodes))
-#print(len(episodes))
-#np.savetxt('ALL_EPISODES_UNSORTED.txt', episodes, fmt='%s', delimiter=',')
-
-episodes = np.loadtxt('ALL_EPISODES_UNSORTED.txt', dtype="U145")
 
 
 def sortSection(a: np.ndarray, copy: np.ndarray, sorted: np.ndarray, n: int, seasonal_eps: np.ndarray):
@@ -78,15 +70,16 @@ def sortSection(a: np.ndarray, copy: np.ndarray, sorted: np.ndarray, n: int, sea
     if (len(a) < 307 and n == 3):
         seasonal_eps[n] -= 1
 
-    s = [w[w.index("ep") + 2:] for i, w in enumerate(sorted) if (i >= prev_sum and i < seasonal_eps[n] + prev_sum)]
+    s = [w[w.index("ep") + 2:] for i, w in enumerate(sorted)
+         if (i >= prev_sum and i < seasonal_eps[n] + prev_sum)]
     s = np.array(s)
-    s_args = np.argsort(s.astype(np.int)) + prev_sum
+    s_args = np.argsort(s.astype(np.int32)) + prev_sum
 
     for i in range(prev_sum, prev_sum + seasonal_eps[n]):
         a[i] = copy[s_args[i - prev_sum]]
 
-
     return a
+
 
 def sortArray(a: np.ndarray):
     whitelist = set('0 1 2 3 4 5 6 7 8 9 ep')
@@ -101,12 +94,12 @@ def sortArray(a: np.ndarray):
         seasons[i] = w[:w.index("ep")]
 
     keylist, ep = getKeyAndEps()
-    seasonal_eps = np.zeros(len(keylist), dtype=np.int)
+    seasonal_eps = np.zeros(len(keylist), dtype=np.int32)
 
     for k in range(len(keylist)):
         seasonal_eps[k] = ep[keylist[k]]
 
-    seasons_args = np.argsort(seasons.astype(np.int))
+    seasons_args = np.argsort(seasons.astype(np.int32))
     a = a[seasons_args]
     sorted_copy = np.ndarray.copy(a)
 
@@ -115,4 +108,18 @@ def sortArray(a: np.ndarray):
 
     return a
 
-#np.savetxt('ALL_EPISODES_SORTED.txt', sortArray(episodes), fmt='%s', delimiter=',')
+
+def main():
+    episodes = scrapeSite()
+    episodes.add(BASE_URL + EPISODES_PREFIX +
+                 '7rd3vw/south-park-a-very-crappy-christmas-season-4-ep-17')
+    episodes = np.fromiter(episodes, 'U150', len(episodes))
+    # print(len(episodes))
+    np.savetxt('ALL_EPISODES_UNSORTED.txt', episodes, fmt='%s', delimiter=',')
+
+    episodes = np.loadtxt('ALL_EPISODES_UNSORTED.txt', dtype="U145")
+    np.savetxt('ALL_EPISODES_SORTED.txt', sortArray(
+        episodes), fmt='%s', delimiter=',')
+
+
+main()

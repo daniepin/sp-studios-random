@@ -10,7 +10,7 @@ import numpy as np
 def createConfigFile() -> None:
     """ Creates a config file with a defualt case """
     config = configparser.ConfigParser()
-    config['DEFAULT'] = {'BASE_URL': "https://www.southparkstudios.nu",
+    config['DEFAULT'] = {'BASE_URL': "https://www.southparkstudios.com",
                          'SEASON_PREFIX': "/seasons/south-park/",
                          'EPISODES_PREFIX': "/episodes/",
                          'DEFAULT_SEASON': "/seasons/south-park/yjy8n9/season-1"}
@@ -125,6 +125,7 @@ def launcher(browser: str, url: str) -> None:
     """ Launch a browser window in a new tab. """
     webbrowser.register(browser, None)
     webbrowser.get().open(url)
+
 
 def loadEpisodeList():
     episodes = np.loadtxt('ALL_EPISODES_SORTED.txt', dtype="U145")
